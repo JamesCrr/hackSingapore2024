@@ -22,7 +22,6 @@
 			};
 		},
 		methods: {
-			formatDate(timestamp) {},
 			removeCircularReferences(obj) {
 				const seenObjects = new WeakSet();
 				return JSON.parse(
@@ -92,12 +91,16 @@
 <template>
 	<section>
 		<h1 class="p-text-center">Proposed Activity</h1>
-		<Card class="p-mb-3 p-mx-auto" style="max-width: 25rem" v-if="activityData">
+		<Card
+			class="p-mb-3 p-mx-auto border-3"
+			style="max-width: 25rem"
+			v-if="activityData"
+		>
 			<template #header>
 				<div
 					v-for="(media, index) in activityData.media"
 					:key="index"
-					class="p-d-flex p-flex-column p-ai-center"
+					class="p-d-flex p-flex-column p-ai-center mt-3"
 				>
 					<img
 						v-if="media.endsWith('.jpg') || media.endsWith('.png')"
