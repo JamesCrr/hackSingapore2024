@@ -16,7 +16,7 @@ import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-light-cyan/theme.css";
 
 // Vue Router
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createMemoryHistory, createRouter, createWebHistory } from "vue-router";
 import HomeView from "./views/HomeView.vue";
 import AboutView from "./views/AboutView.vue";
 import SearchView from "./views/SearchView.vue";
@@ -45,7 +45,7 @@ const routes = [
 ];
 
 const router = createRouter({
-	history: createMemoryHistory(),
+	history: createWebHistory(),
 	routes,
 });
 
