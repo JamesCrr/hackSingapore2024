@@ -22,6 +22,9 @@ import AboutView from "./views/AboutView.vue";
 import SearchView from "./views/SearchView.vue";
 import GroupCreationView from "./views/GroupCreationView.vue";
 import GroupDashboardView from "./views/GroupDashboardView.vue";
+import { VueFire } from "vuefire";
+import { app as firebaseApp } from './firebase';
+
 
 const routes = [
 	{ path: "/", name: "home", component: HomeView },
@@ -41,7 +44,12 @@ const routes = [
 		path: "/groups/:groupid/dashboard",
 		name: "groupdashboard",
 		component: GroupDashboardView,
-	},
+	}, 
+	{
+		path: "/groups/new",
+		name: "groupcreation",
+		component: GroupCreationView,
+	}
 ];
 
 const router = createRouter({
@@ -61,6 +69,9 @@ const app = createApp(App);
 app.use(router);
 app.use(pinia);
 app.use(PrimeVue);
+app.use(VueFire, {
+	firebaseApp
+});
 
 app.use(vue3GoogleLogin, {
 	clientId:
