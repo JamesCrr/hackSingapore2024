@@ -24,12 +24,14 @@ import {
 } from "vue-router";
 import HomeView from "./views/HomeView.vue";
 import AboutView from "./views/AboutView.vue";
+import GroupView from "./views/GroupView.vue";
 import GroupCreationView from "./views/GroupCreationView.vue";
 import GroupDashboardView from "./views/GroupDashboardView.vue";
 import ProposalView from "./views/ProposalView.vue";
+import DiscoverView from "./views/DiscoverView.vue";
 import { VueFire, VueFireAuth } from "vuefire";
 import { app as firebaseApp } from "./firebase";
-import { auth } from './firebase';
+import { auth } from "./firebase";
 
 import ToastService from "primevue/toastservice";
 
@@ -37,6 +39,11 @@ const routes = [
 	{ path: "/", name: "home", component: HomeView },
 	//   { path: "/:username", name: "home", component: HomeView },
 	{ path: "/about", name: "about", component: AboutView },
+	{
+		path: "/groups",
+		name: "groups",
+		component: GroupView,
+	},
 	{
 		path: "/groupcreation",
 		name: "groupcreation",
@@ -56,6 +63,11 @@ const routes = [
 		path: "/proposal",
 		name: "proposal",
 		component: ProposalView,
+	},
+	{
+		path: "/discover",
+		name: "discover",
+		component: DiscoverView,
 	},
 ];
 
@@ -81,7 +93,7 @@ app.use(VueFire, {
 	modules: [
 		// we will see other modules later on
 		VueFireAuth(),
-	  ],
+	],
 });
 app.use(ToastService);
 
