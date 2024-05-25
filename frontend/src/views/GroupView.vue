@@ -23,6 +23,22 @@ import { RouterLink } from "vue-router";
             <Button>Create New Group</Button>
         </router-link>
     </section>
+    <div>
+        <div class="grid">
+        <div class="col-12">
+            <div class="card">
+                Your groups
+            </div>
+        </div>
+        </div>
+        <div class="grid">
+        <div class="col-12">
+            <div class="card">
+                create group
+            </div>
+        </div>
+        </div>
+    </div>
 </template>
 
 <style scoped></style>

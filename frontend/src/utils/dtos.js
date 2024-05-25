@@ -26,3 +26,22 @@ export const GroupConverter = {
 		return new Group(doc.name, doc.description, doc.interests, doc.creator, doc.recommendedActivities, doc.members, doc.participation);
 	}
 }
+export class User {
+  constructor(name = "", interests = [], calender = []) {
+    this.name = name;
+    this.interests = interests;
+    this.calender = calender;
+  }
+}
+export const UserConverter = {
+  toFirestore: (user) => {
+    return {
+      name: user.name,
+      interests: user.interests,
+      calender: user.calender,
+    };
+  },
+  fromFirestore: (doc) => {
+    return new User(doc.name, doc.interests, doc.calender);
+  },
+};
