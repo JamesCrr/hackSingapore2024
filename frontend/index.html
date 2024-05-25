@@ -8,12 +8,18 @@
     <!-- <link id="theme-link" rel="stylesheet" href="/themes/aura-light-pink/theme.css" /> -->
 
     <!-- Google Identity Services -->
-    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <!-- <meta name="referrer" content="strict-origin-when-cross-origin" /> -->
     <script src="https://accounts.google.com/gsi/client" async></script>
     <!-- Google APIs -->
     <script src="https://apis.google.com/js/api.js"></script>
   </head>
   <body>
+    <div
+      id="g_id_onload"
+      data-auto_prompt="false"
+      data-client_id="833343365269-kkr166976fa9pnm0npkub9m32o2shbgf.apps.googleusercontent.com"
+      data-auto_select="true"
+    ></div>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
   </body>

@@ -1,7 +1,7 @@
 <script setup>
 import Button from "primevue/button";
 import axios from "axios";
-import { onMounted } from "vue";
+import { ref, onMounted } from "vue";
 import { useMyStore } from "@/stores/mystore.js";
 const myStore = useMyStore();
 import { GoogleLogin, googleLogout } from "vue3-google-login";
@@ -28,10 +28,21 @@ function fetch_test() {
 // }
 
 const CLIENT_ID = "833343365269-kkr166976fa9pnm0npkub9m32o2shbgf.apps.googleusercontent.com";
-const API_KEY = "AIzaSyCDfleqFMafZdFk2zCLU4bzjUyQ4RkkX8E";
-const DISCOVERY_DOC = "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest";
-const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+const API_KEY = "AIzaSyCZMfyYubpijfhpkfjn09cfJOcfF4swrrM";
+const DISCOVERY_DOCS = [
+  "https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest",
+  "https://people.googleapis.com/$discovery/rest?version=v1",
+];
+const SCOPES =
+  "https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+// const SCOPES = [
+//   "https://www.googleapis.com/auth/calendar.readonly",
+//   "https://www.googleapis.com/auth/userinfo.email",
+//   "https://www.googleapis.com/auth/userinfo.profile",
+// ];
 
+let googleBtn = ref(null);
+let access_token = "";
 let tokenClient;
 let gapiInited = false;
 let gisInited = false;
@@ -42,7 +53,6 @@ let gisInited = false;
 function gapiLoaded() {
   window.gapi.load("client", initializeGapiClient);
 }
-
 /**
  * Callback after the API client is loaded. Loads the
  * discovery doc to initialize the API.
@@ -50,12 +60,11 @@ function gapiLoaded() {
 async function initializeGapiClient() {
   await window.gapi.client.init({
     apiKey: API_KEY,
-    discoveryDocs: [DISCOVERY_DOC],
+    discoveryDocs: DISCOVERY_DOCS,
   });
   gapiInited = true;
   maybeEnableButtons();
 }
-
 /**
  * Callback after Google Identity Services are loaded.
  */
@@ -63,7 +72,9 @@ function gisLoaded() {
   tokenClient = window.google.accounts.oauth2.initTokenClient({
     client_id: CLIENT_ID,
     scope: SCOPES,
-    callback: "", // defined later
+    callback: (tokenResponse) => {
+      access_token = tokenResponse.access_token;
+    },
   });
   gisInited = true;
   maybeEnableButtons();
@@ -75,23 +86,44 @@ function gisLoaded() {
 function maybeEnableButtons() {
   if (gapiInited && gisInited) {
     console.log("GAPI initialised");
+
+    // window.google.accounts.id.prompt();
   }
+}
+
+async function getUserInfo() {
+  console.log("window.gapi.client.people.people:", window.gapi.client.people.people);
+  await window.gapi.client.people.people
+    .get({
+      resourceName: "people/me",
+      "requestMask.includeField": "person.names",
+    })
+    .then(function (resp) {
+      // var p = document.createElement('p');
+      var name = resp.result.names[0].givenName;
+      // p.appendChild(document.createTextNode('Hello, '+name+'!'));
+      // document.getElementById('content').appendChild(p);
+      console.log("Name:", name);
+    });
 }
 
 /**
  *  Sign in the user upon button click.
  */
 async function handleAuthClick() {
-  console.log("handleAuthClick:", gapiInited, gisInited, tokenClient);
   if (!gapiInited || !gisInited) {
     console.log("GAPI NOT initialised YET");
     return;
   }
 
-  tokenClient.callback = async (resp) => {
-    if (resp.error !== undefined) {
-      throw resp;
+  tokenClient.callback = async (response) => {
+    if (response.error !== undefined) {
+      throw response;
     }
+    // console.log("resp:", response);
+    // console.log("window.gapi.client:", window.gapi.client);
+    getUserInfo();
+    // listUpcomingEvents();
   };
 
   if (window.gapi.client.getToken() === null) {
@@ -122,7 +154,6 @@ function handleSignoutClick() {
  * appropriate message is printed.
  */
 async function listUpcomingEvents() {
-  console.log("LISYGINGG");
   let response;
   try {
     const request = {
