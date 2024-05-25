@@ -38,7 +38,7 @@ const routes = [
 		component: GroupCreationView,
 	},
 	{
-		path: "/groupdashboard",
+		path: "/groups/:groupid/dashboard",
 		name: "groupdashboard",
 		component: GroupDashboardView,
 	},
