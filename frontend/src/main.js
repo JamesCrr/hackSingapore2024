@@ -27,8 +27,9 @@ import AboutView from "./views/AboutView.vue";
 import GroupCreationView from "./views/GroupCreationView.vue";
 import GroupDashboardView from "./views/GroupDashboardView.vue";
 import ProposalView from "./views/ProposalView.vue";
-import { VueFire } from "vuefire";
+import { VueFire, VueFireAuth } from "vuefire";
 import { app as firebaseApp } from "./firebase";
+import { auth } from './firebase';
 
 import ToastService from "primevue/toastservice";
 
@@ -77,6 +78,10 @@ app.use(pinia);
 app.use(PrimeVue);
 app.use(VueFire, {
 	firebaseApp,
+	modules: [
+		// we will see other modules later on
+		VueFireAuth(),
+	  ],
 });
 app.use(ToastService);
 

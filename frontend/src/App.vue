@@ -1,42 +1,41 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-import PWABadge from "./components/PWABadge.vue";
-import TabMenu from 'primevue/tabmenu';
-import Button from "primevue/button";
+	import HelloWorld from "./components/HelloWorld.vue";
+	import PWABadge from "./components/PWABadge.vue";
+	import TabMenu from "primevue/tabmenu";
+	import Button from "primevue/button";
 
-const items= [
-                {
-                   label:'Home',
-                   icon:'',
-                   route:'/',
+	const items = [
+		{
+			label: "Home",
+			icon: "",
+			route: "/",
+		},
+		{
+			label: "Opportunities",
+			icon: "",
+			route: "",
+		},
 
-                },
-                {
-                   label:'Opportunities',
-                   icon:'',
-                   route:'',
-                  },
-
-                {
-                   label:'Groups',
-                   icon:'',
-                   route:'',
-                  },
-                {
-                   label:'My Profile',
-                   icon:'',
-                   route:'',
-                },
-                {
-                   label:'About',
-                   icon:'',
-                   route:'/About',
-                }
-             ]
+		{
+			label: "Groups",
+			icon: "",
+			route: "/groups",
+		},
+		{
+			label: "My Profile",
+			icon: "",
+			route: "",
+		},
+		{
+			label: "About",
+			icon: "",
+			route: "/About",
+		},
+	];
 </script>
 
 <template>
-  <!-- <div>
+	<!-- <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/favicon.svg" class="logo" alt="frontend logo" />
     </a>
@@ -47,44 +46,54 @@ const items= [
   <HelloWorld msg="frontend" />
   <PWABadge /> -->
 
-  <!-- <div class="card flex flex-wrap gap-3 justify-content-center">
+	<!-- <div class="card flex flex-wrap gap-3 justify-content-center">
     <Button icon="pi pi-check" aria-label="Submit" />
     <Button label="Submit" icon="pi pi-check" />
     <Button label="Submit" icon="pi pi-check" iconPos="right" />
   </div> -->
 
-  <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
-  <nav>
-    <TabMenu :model="items">
-      <template #item="{ item, props }">
-          <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-              <a v-ripple :href="href" v-bind="props.action" @click="navigate">
-                  <span v-bind="props.icon" />
-                  <span v-bind="props.label">{{ item.label }}</span>
-              </a>
-          </router-link>
-          <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
-              <span v-bind="props.icon" />
-              <span v-bind="props.label">{{ item.label }}</span>
-          </a>
-      </template>
-    </TabMenu>
-
-    <RouterLink to="/">Go to Home</RouterLink>
-    <RouterLink to="/about">Go to About</RouterLink>
-    <RouterLink to="/about">Go to About</RouterLink>
-    <RouterLink to="/search">Go to Search</RouterLink>
-    <RouterLink to="/groupcreation">Go to Group Creation</RouterLink>
-    <RouterLink to="/groupdashboard">Go to Group Dashboard</RouterLink>
-    <RouterLink to="/proposal">Go to Proposal</RouterLink>
-  </nav>
-  <main>
-    <RouterView />
-  </main>
+	<p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
+	<nav>
+		<TabMenu :model="items">
+			<template #item="{ item, props }">
+				<router-link
+					v-if="item.route"
+					v-slot="{ href, navigate }"
+					:to="item.route"
+					custom
+				>
+					<a v-ripple :href="href" v-bind="props.action" @click="navigate">
+						<span v-bind="props.icon" />
+						<span v-bind="props.label">{{ item.label }}</span>
+					</a>
+				</router-link>
+				<a
+					v-else
+					v-ripple
+					:href="item.url"
+					:target="item.target"
+					v-bind="props.action"
+				>
+					<span v-bind="props.icon" />
+					<span v-bind="props.label">{{ item.label }}</span>
+				</a>
+			</template>
+		</TabMenu>
+		<RouterLink to="/">Go to Home</RouterLink>
+		<RouterLink to="/about">Go to About</RouterLink>
+		<RouterLink to="/about">Go to About</RouterLink>
+		<RouterLink to="/search">Go to Search</RouterLink>
+		<RouterLink to="/groupcreation">Go to Group Creation</RouterLink>
+		<RouterLink to="/groupdashboard">Go to Group Dashboard</RouterLink>
+		<RouterLink to="/proposal">Go to Proposal</RouterLink>
+	</nav>
+	<main>
+		<RouterView />
+	</main>
 </template>
 
 <style scoped>
-/* .logo {
+	/* .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
