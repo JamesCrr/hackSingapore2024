@@ -10,9 +10,6 @@ import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute();
 
-/**
- * Return google user's calender events
- */
 function addMonths(date, months) {
   var d = date.getDate();
   date.setMonth(date.getMonth() + +months);
@@ -21,6 +18,9 @@ function addMonths(date, months) {
   }
   return date;
 }
+/**
+ * Return google user's calender events
+ */
 async function getUpcomingGoogleEvents(maxMonths = 6) {
   let response;
   let result = [];
@@ -61,15 +61,16 @@ async function getUpcomingGoogleEvents(maxMonths = 6) {
 }
 async function updateFirebaseUser() {
   let google_id = null;
+  let google_name = "";
   await window.gapi.client.people.people
     .get({
       resourceName: "people/me",
       "requestMask.includeField": "person.names",
     })
     .then(function (resp) {
-      let name = resp.result.names[0].givenName;
+      google_name = resp.result.names[0].givenName;
       google_id = resp.result.names[0].metadata.source.id;
-      console.log("Name:", name, "Id:", google_id);
+      console.log("Name:", google_name, "Id:", google_id);
     });
 
   if (google_id == null) {
@@ -81,8 +82,31 @@ async function updateFirebaseUser() {
   // Replace data in Firestore
   await setDoc(doc(db, "users", google_id), { calender: upcomingEvents }, { merge: true });
 
+  // Store into pinia
+  myStore.set_userObj({ id: google_id, name: google_name });
+
   // Go to groups page
   router.push({ name: "groupdashboard", params: { groupid: "eduardo" } });
+}
+
+/**
+ * Handle the sign in
+ */
+async function signInCallBack(response) {
+  if (response.error !== undefined) {
+    throw response;
+  }
+  // Sign in success
+
+  // Update firebase
+  updateFirebaseUser();
+}
+async function signIn() {
+  try {
+    await handleSignInClick(signInCallBack);
+  } catch (error) {
+    console.error("Error occurred during sign-in:", error);
+  }
 }
 
 onMounted(() => {
@@ -99,7 +123,7 @@ onMounted(() => {
     <!-- <GoogleLogin :callback="google_login_callback" />
     <button @onclick="google_logout">Logout Google</button> -->
 
-    <button @click="handleSignInClick()">Authorize</button>
+    <button @click="signIn()">Authorize</button>
     <button @click="handleSignOutClick()">Sign Out</button>
     <button @click="getUpcomingGoogleEvents()">Fetch Events</button>
   </div>
