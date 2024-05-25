@@ -72,6 +72,10 @@ const items= [
 <!-- 
     <RouterLink to="/">Go to Home</RouterLink>
     <RouterLink to="/about">Go to About</RouterLink> -->
+    <RouterLink to="/about">Go to About</RouterLink>
+    <RouterLink to="/search">Go to Search</RouterLink>
+    <RouterLink to="/groupcreation">Go to Group Creation</RouterLink>
+    <RouterLink to="/groupdashboard">Go to Group Dashboard</RouterLink>
   </nav>
   <main>
     <RouterView />
