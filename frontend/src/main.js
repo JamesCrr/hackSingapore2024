@@ -1,5 +1,7 @@
 import { createApp } from "vue";
 import "./style.css";
+import 'primeicons/primeicons.css'
+
 import App from "./App.vue";
 // Google Login
 import vue3GoogleLogin from "vue3-google-login";
@@ -23,6 +25,7 @@ import {
 	createWebHistory,
 } from "vue-router";
 import HomeView from "./views/HomeView.vue";
+import HomeView2 from "./views/HomeView2.vue";
 import AboutView from "./views/AboutView.vue";
 import GroupView from "./views/GroupView.vue";
 import GroupCreationView from "./views/GroupCreationView.vue";
@@ -36,7 +39,7 @@ import { auth } from "./firebase";
 import ToastService from "primevue/toastservice";
 
 const routes = [
-	{ path: "/", name: "home", component: HomeView },
+	{ path: "/", name: "home", component: HomeView2 },
 	//   { path: "/:username", name: "home", component: HomeView },
 	{ path: "/about", name: "about", component: AboutView },
 	{
@@ -45,12 +48,12 @@ const routes = [
 		component: GroupView,
 	},
 	{
-		path: "/groupcreation",
-		name: "groupcreation",
-		component: GroupCreationView,
+		path: "/groups",
+		name: "groups",
+		component: GroupView
 	},
 	{
-		path: "/groups/:groupid/dashboard",
+		path: "/groups/:id",
 		name: "groupdashboard",
 		component: GroupDashboardView,
 	},

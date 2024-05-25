@@ -11,6 +11,7 @@ import { Group, GroupConverter } from "@/utils/dtos"
 import { computed } from "vue";
 import { useToast } from "primevue/usetoast";
 import { useMyStore } from "@/stores/mystore"
+import BackButton from "@/components/BackButton.vue"
 
 const group = ref(new Group())
 const groupsRef = collection(db, 'groups').withConverter(GroupConverter);
@@ -39,23 +40,24 @@ function createGroup() {
 </script>
 
 <template>
+	<BackButton class="mt-2"></BackButton>
 	<section class="mx-2">
-		<h1>Create New Group</h1>
+		<h1 class="mt-1">Create New Group</h1>
 
 		<form class="flex flex-column gap-4" @submit.prevent="createGroup">
 			<section class="flex flex-column gap-2">
 				<label for="groupname">Group name</label>
-				<InputText id="groupname" v-model="group.name" required/>
+				<InputText id="groupname" v-model="group.name" required />
 			</section>
 			<section class="flex flex-column gap-2">
 				<label for="description">Description</label>
-				<InputText id="description" v-model="group.description" required/>
+				<InputText id="description" v-model="group.description" required />
 			</section>
 			<section class="">
 				<label for="selectedInterests">Interests</label>
 				<MultiSelect v-model="group.interests" :options="interests" filter id="selectedInterests"
 					placeholder="Select Interests" :maxSelectedLabels="3" class="w-full" />
-				</section>
+			</section>
 			<Button type="submit" class="block">Create Group</Button>
 		</form>
 
