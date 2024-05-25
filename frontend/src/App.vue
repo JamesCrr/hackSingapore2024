@@ -39,6 +39,17 @@ const items = [
     route: '/About',
   }
 ]
+
+const showSidebar = () => {
+  visibleLeft.value = true;
+};
+
+const handleClick = (navigate, toggleVisibleLeft) => {
+  if (toggleVisibleLeft) {
+    visibleLeft.value = false;
+  }
+  navigate();
+};
 </script>
 
 <template>
@@ -61,16 +72,22 @@ const items = [
 
   <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
   <nav>
-    <Button  @click="visibleLeft = true" />
+    <Button  @click="visibleLeft = true" class="pi pi-list"/>
     <Sidebar v-model:visible="visibleLeft" header="GivingBuddies">
       <Menu :model="items">
             <template #item="{ item, props }">
-                <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-                    <a v-ripple :href="href" v-bind="props.action" @click="navigate">
-                        <span :class="item.icon" />
-                        <span class="ml-2">{{ item.label }}</span>
-                    </a>
-                </router-link>
+              <router-link
+            v-if="item.route"
+            v-slot="{ href, navigate }"
+            :to="item.route"
+            custom
+            @click.native="handleClick(navigate, item.toggleVisibleLeft)"
+          >
+            <a v-ripple :href="href" v-bind="props.action">
+              <span :class="item.icon" />
+              <span class="ml-2">{{ item.label }}</span>
+            </a>
+          </router-link>
                 <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
                     <span :class="item.icon" />
                     <span class="ml-2">{{ item.label }}</span>
