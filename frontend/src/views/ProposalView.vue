@@ -22,10 +22,7 @@
 			};
 		},
 		methods: {
-			formatDate(timestamp) {
-				date = timestamp.date.toDate();
-				return date;
-			},
+			formatDate(timestamp) {},
 			removeCircularReferences(obj) {
 				const seenObjects = new WeakSet();
 				return JSON.parse(
@@ -133,7 +130,7 @@
 				>
 					<strong>{{ key }}</strong>
 				</div>
-				<p>{{ formatDate(activityData.date) }}</p>
+				<p>{{ activityData.date }}</p>
 				<p>{{ activityData.description }}</p>
 			</template>
 		</Card>
