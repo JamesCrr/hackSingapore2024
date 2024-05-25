@@ -27,25 +27,11 @@
 	// 	// This callback will be triggered when the user selects or login to his Google account from the popup
 	// 	myStore.set_userObj(response);
 	// }
+  
 	// function google_logout() {
 	// 	googleLogout();
 	// 	myStore.set_userObj(null);
 	// }
-
-// <template>
-// 	<div>
-// 		<div v-if="!myStore.userObj">
-// 			<h1>Login</h1>
-// 			<GoogleLogin :callback="google_login_callback" />
-// 		</div>
-// 		<div v-else>
-// 			<h1>Home</h1>
-// 			<p>Store: {{ myStore.count }}</p>
-// 			<h3 @click="myStore.increment()">Increment</h3>
-// 			<h3 @click="fetch_test">Fetch data</h3>
-// 			<button @click="google_logout">Logout Google</button>
-// 		</div>
-// 	</div>
 
 const CLIENT_ID = "833343365269-kkr166976fa9pnm0npkub9m32o2shbgf.apps.googleusercontent.com";
 const API_KEY = "AIzaSyCDfleqFMafZdFk2zCLU4bzjUyQ4RkkX8E";
@@ -225,6 +211,19 @@ onMounted(() => {
     <button @click="handleSignoutClick()">Sign Out</button>
     <button @click="listUpcomingEvents()">Fetch Events</button>
   </div>
+<!--<div>
+    <div v-if="!myStore.userObj">
+      <h1>Login</h1>
+      <GoogleLogin :callback="google_login_callback" />
+    </div>
+    <div v-else>
+      <h1>Home</h1>
+      <p>Store: {{ myStore.count }}</p>
+      <h3 @click="myStore.increment()">Increment</h3>
+      <h3 @click="fetch_test">Fetch data</h3>
+      <button @click="google_logout">Logout Google</button>
+    </div>
+  </div> -->
 </template>
 
 <style scoped></style>
