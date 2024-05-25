@@ -25,6 +25,8 @@ import GroupDashboardView from "./views/GroupDashboardView.vue";
 import { VueFire } from "vuefire";
 import { app as firebaseApp } from './firebase';
 
+import ToastService from "primevue/toastservice";
+
 
 const routes = [
 	{ path: "/", name: "home", component: HomeView },
@@ -67,6 +69,7 @@ app.use(PrimeVue);
 app.use(VueFire, {
 	firebaseApp
 });
+app.use(ToastService);
 
 app.use(vue3GoogleLogin, {
 	clientId:
