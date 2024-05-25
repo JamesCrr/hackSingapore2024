@@ -18,11 +18,10 @@ const items = [
 
   },
   {
-    label: 'Opportunities',
+    label: 'Discover',
     icon: 'pi pi-heart',
-    route: '',
+    route: '/discover',
   },
-
   {
     label: 'Groups',
     icon: 'pi pi-users',
@@ -34,8 +33,8 @@ const items = [
     route: '',
   },
   {
-    label: 'About',
-    icon: 'pi pi-home',
+    label: 'Logout',
+    icon: 'pi pi-sign-out',
     route: '/About',
   }
 ]

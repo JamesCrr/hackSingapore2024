@@ -18,59 +18,66 @@ import "primevue/resources/themes/aura-light-cyan/theme.css";
 // Vue Router
 import { createMemoryHistory, createRouter, createWebHistory } from "vue-router";
 import HomeView from "./views/HomeView.vue";
-import HomeView2 from "./views/HomeView2.vue";
 import AboutView from "./views/AboutView.vue";
 import SearchView from "./views/SearchView.vue";
+import GroupView from "./views/GroupView.vue";
 import GroupCreationView from "./views/GroupCreationView.vue";
 import GroupDashboardView from "./views/GroupDashboardView.vue";
+import DiscoverView from "./views/DiscoverView.vue";
 import { VueFire, VueFireAuth } from "vuefire";
-import { app as firebaseApp } from "./firebase";
-import { auth } from "./firebase";
+import { app as firebaseApp } from './firebase';
+import { auth } from './firebase';
 
 import ToastService from "primevue/toastservice";
 
+
 const routes = [
-  { path: "/", name: "home", component: HomeView2 },
-  //   { path: "/:username", name: "home", component: HomeView },
-  { path: "/about", name: "about", component: AboutView },
-  {
-    path: "/search",
-    name: "search",
-    component: SearchView,
-  },
-  {
-    path: "/groupcreation",
-    name: "groupcreation",
-    component: GroupCreationView,
-  },
-  {
-    path: "/groups/:groupid/dashboard",
-    name: "groupdashboard",
-    component: GroupDashboardView,
-  },
-  {
-    path: "/groups/:id/join",
-    name: "groupjoin",
-    component: GroupDashboardView,
-  },
-  {
-    path: "/groups/new",
-    name: "groupcreation",
-    component: GroupCreationView,
-  },
+	{ path: "/", name: "home", component: HomeView },
+	//   { path: "/:username", name: "home", component: HomeView },
+	{ path: "/about", name: "about", component: AboutView },
+	{
+		path: "/search",
+		name: "search",
+		component: SearchView,
+	},
+	{
+		path: "/groups",
+		name: "groups",
+		component: GroupView,
+	},
+	{
+		path: "/groupcreation",
+		name: "groupcreation",
+		component: GroupCreationView,
+	},
+	{
+		path: "/groups/:groupid/dashboard",
+		name: "groupdashboard",
+		component: GroupDashboardView,
+	}, 
+	{
+		path: "/groups/new",
+		name: "groupcreation",
+		component: GroupCreationView,
+	},
+	{
+		path: "/discover",
+		name: "discover",
+		component: DiscoverView,
+	},
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+	history: createWebHistory(),
+	routes,
 });
 
 router.beforeEach((to, from) => {
-  const piniaStore = useMyStore(pinia);
-  console.log("Router beforeEach: ", piniaStore.count);
+	const piniaStore = useMyStore(pinia);
+	console.log("Router beforeEach: ", piniaStore.count);
 
-  // return true to continue the navigation
-  return true;
+	// return true to continue the navigation
+	return true;
 });
 
 const app = createApp(App);
@@ -78,16 +85,17 @@ app.use(router);
 app.use(pinia);
 app.use(PrimeVue);
 app.use(VueFire, {
-  firebaseApp,
-  modules: [
-    // we will see other modules later on
-    VueFireAuth(),
-  ],
+	firebaseApp,
+	modules: [
+		// we will see other modules later on
+		VueFireAuth(),
+	  ],
 });
 app.use(ToastService);
 
 app.use(vue3GoogleLogin, {
-  clientId: "833343365269-kkr166976fa9pnm0npkub9m32o2shbgf.apps.googleusercontent.com",
+	clientId:
+		"833343365269-kkr166976fa9pnm0npkub9m32o2shbgf.apps.googleusercontent.com",
 });
 
 app.mount("#app");
