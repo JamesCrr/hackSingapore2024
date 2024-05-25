@@ -17,11 +17,14 @@ import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-light-lime/theme.css";
 
 // Vue Router
-import { createMemoryHistory, createRouter } from "vue-router";
+import { createMemoryHistory, createRouter, createWebHistory } from "vue-router";
 import HomeView from "./views/HomeView.vue";
 import AboutView from "./views/AboutView.vue";
 import GroupCreationView from "./views/GroupCreationView.vue";
 import GroupDashboardView from "./views/GroupDashboardView.vue";
+import { VueFire } from "vuefire";
+import { app as firebaseApp } from './firebase';
+
 
 const routes = [
 	{ path: "/", name: "home", component: HomeView },
@@ -36,11 +39,16 @@ const routes = [
 		path: "/groups/:groupid/dashboard",
 		name: "groupdashboard",
 		component: GroupDashboardView,
-	},
+	}, 
+	{
+		path: "/groups/new",
+		name: "groupcreation",
+		component: GroupCreationView,
+	}
 ];
 
 const router = createRouter({
-	history: createMemoryHistory(),
+	history: createWebHistory(),
 	routes,
 });
 
@@ -56,6 +64,9 @@ const app = createApp(App);
 app.use(router);
 app.use(pinia);
 app.use(PrimeVue);
+app.use(VueFire, {
+	firebaseApp
+});
 
 app.use(vue3GoogleLogin, {
 	clientId:
