@@ -15,7 +15,8 @@
     "primevue": "^3.52.0",
     "vue": "^3.4.26",
     "vue-router": "^4.3.2",
-    "vue3-google-login": "^2.0.26"
+    "vue3-google-login": "^2.0.26",
+    "vuefire": "^3.1.23"
   },
   "devDependencies": {
     "@vite-pwa/assets-generator": "^0.2.4",
