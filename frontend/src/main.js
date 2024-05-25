@@ -50,7 +50,7 @@ const routes = [
   },
   {
     path: "/groups/:id/join",
-    name: "groupdashboard",
+    name: "groupjoin",
     component: GroupDashboardView,
   },
   {

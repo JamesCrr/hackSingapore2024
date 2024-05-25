@@ -49,6 +49,11 @@ function gisLoaded() {
 function maybeEnableButtons() {
   if (gapiInited && gisInited) {
     console.log("GAPI initialised");
+  }
+}
+export function oneTapLogin() {
+  if (gapiInited && gisInited) {
+    console.log("GAPI initialised");
 
     window.google.accounts.id.prompt();
   }
@@ -57,17 +62,18 @@ function maybeEnableButtons() {
 /**
  *  Sign in the user upon button click.
  */
-export async function handleSignInClick() {
+export async function handleSignInClick(callbackFunc) {
   if (!gapiInited || !gisInited) {
     console.log("GAPI NOT initialised YET");
-    return false;
+    return;
   }
 
-  tokenClient.callback = async (response) => {
-    if (response.error !== undefined) {
-      throw response;
-    }
-  };
+  // tokenClient.callback = async (response) => {
+  //   if (response.error !== undefined) {
+  //     throw response;
+  //   }
+  // };
+  tokenClient.callback = callbackFunc;
 
   if (window.gapi.client.getToken() === null) {
     // Prompt the user to select a Google Account and ask for consent to share their data
