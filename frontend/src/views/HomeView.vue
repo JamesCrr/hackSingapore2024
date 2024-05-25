@@ -7,7 +7,7 @@ const store = useCounterStore();
 
 function fetch_test() {
   axios
-    .get("https://fluffy-fishstick.onrender.com/users")
+    .get("https://hacksingapore2024.onrender.com/users")
     .then((response) => {
       // Handle success
       console.log(response.data);
