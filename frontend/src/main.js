@@ -20,6 +20,7 @@ import { createMemoryHistory, createRouter, createWebHistory } from "vue-router"
 import HomeView from "./views/HomeView.vue";
 import AboutView from "./views/AboutView.vue";
 import SearchView from "./views/SearchView.vue";
+import GroupView from "./views/GroupView.vue";
 import GroupCreationView from "./views/GroupCreationView.vue";
 import GroupDashboardView from "./views/GroupDashboardView.vue";
 import { VueFire } from "vuefire";
@@ -38,12 +39,12 @@ const routes = [
 		component: SearchView,
 	},
 	{
-		path: "/groupcreation",
-		name: "groupcreation",
-		component: GroupCreationView,
+		path: "/groups",
+		name: "groups",
+		component: GroupView
 	},
 	{
-		path: "/groups/:groupid/dashboard",
+		path: "/groups/:groupid",
 		name: "groupdashboard",
 		component: GroupDashboardView,
 	}, 
