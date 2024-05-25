@@ -13,13 +13,13 @@ import "primeflex/primeflex.css";
 // PrimeVue
 import PrimeVue from "primevue/config";
 // import "primevue/resources/themes/aura-light-green/theme.css";
-import "primevue/resources/themes/aura-light-cyan/theme.css";
+//import "primevue/resources/themes/aura-light-cyan/theme.css";
+import "primevue/resources/themes/aura-light-lime/theme.css";
 
 // Vue Router
 import { createMemoryHistory, createRouter } from "vue-router";
 import HomeView from "./views/HomeView.vue";
 import AboutView from "./views/AboutView.vue";
-import SearchView from "./views/SearchView.vue";
 import GroupCreationView from "./views/GroupCreationView.vue";
 import GroupDashboardView from "./views/GroupDashboardView.vue";
 
@@ -27,11 +27,6 @@ const routes = [
 	{ path: "/", name: "home", component: HomeView },
 	//   { path: "/:username", name: "home", component: HomeView },
 	{ path: "/about", name: "about", component: AboutView },
-	{
-		path: "/search",
-		name: "search",
-		component: SearchView,
-	},
 	{
 		path: "/groupcreation",
 		name: "groupcreation",
