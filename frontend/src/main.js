@@ -1,9 +1,11 @@
 import { createApp } from "vue";
 import "./style.css";
 import App from "./App.vue";
+// Google Login
+import vue3GoogleLogin from "vue3-google-login";
 // Pinia
 import { createPinia } from "pinia";
-import { useCounterStore } from "@/stores/counter.js";
+import { useMyStore } from "@/stores/mystore.js";
 const pinia = createPinia();
 
 // Primeflex
@@ -27,7 +29,7 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to, from) => {
-  const piniaStore = useCounterStore(pinia);
+  const piniaStore = useMyStore(pinia);
   console.log("Router beforeEach: ", piniaStore.count);
 
   // return true to continue the navigation
@@ -38,5 +40,9 @@ const app = createApp(App);
 app.use(router);
 app.use(pinia);
 app.use(PrimeVue);
+
+app.use(vue3GoogleLogin, {
+  clientId: "833343365269-kkr166976fa9pnm0npkub9m32o2shbgf.apps.googleusercontent.com",
+});
 
 app.mount("#app");

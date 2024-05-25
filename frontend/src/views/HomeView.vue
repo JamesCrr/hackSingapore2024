@@ -1,9 +1,10 @@
 <script setup>
 import Button from "primevue/button";
 import axios from "axios";
-import { useCounterStore } from "@/stores/counter.js";
+import { GoogleLogin, googleLogout } from "vue3-google-login";
+import { useMyStore } from "@/stores/mystore.js";
 
-const store = useCounterStore();
+const myStore = useMyStore();
 
 function fetch_test() {
   axios
@@ -17,14 +18,24 @@ function fetch_test() {
       console.error("There was an error!", error);
     });
 }
+
+function google_login_callback(response) {
+  // This callback will be triggered when the user selects or login to his Google account from the popup
+  myStore.set_userObj(response);
+}
+function google_logout() {
+  googleLogout();
+}
 </script>
 
 <template>
   <div>
     <h1>Home</h1>
-    <p>Store: {{ store.count }}</p>
+    <p>Store: {{ myStore.count }}</p>
     <h3 @click="store.increment()">Increment</h3>
     <h3 @click="fetch_test">Fetch data</h3>
+    <GoogleLogin :callback="google_login_callback" />
+    <button @onclick="google_logout">Logout Google</button>
   </div>
 </template>
 
