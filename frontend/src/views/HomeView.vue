@@ -5,18 +5,19 @@ import { onMounted } from "vue";
 import { useMyStore } from "@/stores/mystore.js";
 const myStore = useMyStore();
 import { GoogleLogin, googleLogout } from "vue3-google-login";
-import { getAuth, GoogleAuthProvider, signInWithPopup,signInWithRedirect, getRedirectResult } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup,signInWithRedirect, getRedirectResult, setPersistence, browserLocalPersistence } from "firebase/auth";
 // import { getAuth, signInWithPopup } from "firebase/auth";
 // import { auth } from '../firebase.js';
 
 const provider = new GoogleAuthProvider();
-provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+provider.addScope(['https://www.googleapis.com/auth/calendar.readonly']);
 console.log(provider);
 const auth = getAuth();
 auth.languageCode = 'en';
 console.log(auth);
 async function signInWithGoogle() {
   try {
+    setPersistence(auth, browserLocalPersistence)
     const result = await signInWithPopup(auth, provider);
     myStore.set_userObj(result.user);
     const user = result.user;

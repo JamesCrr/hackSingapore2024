@@ -1,35 +1,41 @@
 <script setup>
+import "primeicons/primeicons.css";
 import HelloWorld from "./components/HelloWorld.vue";
 import PWABadge from "./components/PWABadge.vue";
 import TabMenu from 'primevue/tabmenu';
 import Button from "primevue/button";
+import Sidebar from 'primevue/sidebar';
+import Menu from 'primevue/menu';
+import { ref } from 'vue';
+
+const visibleLeft = ref(false);
 
 const items = [
   {
     label: 'Home',
-    icon: '',
+    icon: 'pi pi-home',
     route: '/',
 
   },
   {
     label: 'Opportunities',
-    icon: '',
+    icon: 'pi pi-heart',
     route: '',
   },
 
   {
     label: 'Groups',
-    icon: '',
+    icon: 'pi pi-users',
     route: '/groups',
   },
   {
     label: 'My Profile',
-    icon: '',
+    icon: 'pi pi-user',
     route: '',
   },
   {
     label: 'About',
-    icon: '',
+    icon: 'pi pi-home',
     route: '/About',
   }
 ]
@@ -55,7 +61,24 @@ const items = [
 
   <p><strong>Current route path:</strong> {{ $route.fullPath }}</p>
   <nav>
-    <TabMenu :model="items">
+    <Button  @click="visibleLeft = true" />
+    <Sidebar v-model:visible="visibleLeft" header="GivingBuddies">
+      <Menu :model="items">
+            <template #item="{ item, props }">
+                <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+                    <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+                        <span :class="item.icon" />
+                        <span class="ml-2">{{ item.label }}</span>
+                    </a>
+                </router-link>
+                <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+                    <span :class="item.icon" />
+                    <span class="ml-2">{{ item.label }}</span>
+                </a>
+            </template>
+        </Menu>
+</Sidebar>
+    <!-- <TabMenu :model="items">
       <template #item="{ item, props }">
         <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
           <a v-ripple :href="href" v-bind="props.action" @click="navigate">
@@ -68,7 +91,7 @@ const items = [
           <span v-bind="props.label">{{ item.label }}</span>
         </a>
       </template>
-    </TabMenu>
+    </TabMenu> -->
     <!-- 
     <RouterLink to="/">Go to Home</RouterLink>
     <RouterLink to="/about">Go to About</RouterLink> -->
