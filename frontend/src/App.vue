@@ -4,35 +4,35 @@ import PWABadge from "./components/PWABadge.vue";
 import TabMenu from 'primevue/tabmenu';
 import Button from "primevue/button";
 
-const items= [
-                {
-                   label:'Home',
-                   icon:'',
-                   route:'/',
+const items = [
+  {
+    label: 'Home',
+    icon: '',
+    route: '/',
 
-                },
-                {
-                   label:'Opportunities',
-                   icon:'',
-                   route:'',
-                  },
+  },
+  {
+    label: 'Opportunities',
+    icon: '',
+    route: '',
+  },
 
-                {
-                   label:'Groups',
-                   icon:'',
-                   route:'',
-                  },
-                {
-                   label:'My Profile',
-                   icon:'',
-                   route:'',
-                },
-                {
-                   label:'About',
-                   icon:'',
-                   route:'/About',
-                }
-             ]
+  {
+    label: 'Groups',
+    icon: '',
+    route: '/groups',
+  },
+  {
+    label: 'My Profile',
+    icon: '',
+    route: '',
+  },
+  {
+    label: 'About',
+    icon: '',
+    route: '/About',
+  }
+]
 </script>
 
 <template>
@@ -57,19 +57,19 @@ const items= [
   <nav>
     <TabMenu :model="items">
       <template #item="{ item, props }">
-          <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-              <a v-ripple :href="href" v-bind="props.action" @click="navigate">
-                  <span v-bind="props.icon" />
-                  <span v-bind="props.label">{{ item.label }}</span>
-              </a>
-          </router-link>
-          <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
-              <span v-bind="props.icon" />
-              <span v-bind="props.label">{{ item.label }}</span>
+        <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+          <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+            <span v-bind="props.icon" />
+            <span v-bind="props.label">{{ item.label }}</span>
           </a>
+        </router-link>
+        <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+          <span v-bind="props.icon" />
+          <span v-bind="props.label">{{ item.label }}</span>
+        </a>
       </template>
     </TabMenu>
-<!-- 
+    <!-- 
     <RouterLink to="/">Go to Home</RouterLink>
     <RouterLink to="/about">Go to About</RouterLink> -->
     <!-- <RouterLink to="/about">Go to About</RouterLink>
